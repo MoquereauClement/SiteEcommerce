@@ -13,20 +13,12 @@ if (isset($_GET['delete'])) {
     $delet_id = $_GET['delete'];
 
     // Supprimer l'utilisateur
-    $delete_users = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+    $delete_users = $conn->prepare("DELETE FROM `users` WHERE id_users = ?");
     $delete_users->execute([$delet_id]);
 
     // Supprimer les commandes associées
     $delete_order = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
     $delete_order->execute([$delet_id]);
-
-    // Supprimer le panier associé
-    $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
-    $delete_cart->execute([$delet_id]);
-
-    // Supprimer la liste de souhaits associée
-    $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
-    $delete_wishlist->execute([$delet_id]);
 
     // Supprimer les messages associés
     $delete_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
@@ -67,9 +59,9 @@ if (isset($_GET['delete'])) {
                 while ($fetch_accounts = $select_account->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <div class="box">
-                        <p> User ID: <span><?= $fetch_accounts['id']; ?></span> </p>
-                        <p> Username: <span><?= $fetch_accounts['name']; ?></span> </p>
-                        <a href="user_accounts.php?delete=<?= $fetch_accounts['id']; ?>" class="delete-btn" onclick="return confirm('Delete this account?');">Delete</a>
+                        <p> User ID: <span><?= $fetch_accounts['id_users']; ?></span> </p>
+                        <p> Username: <span><?= $fetch_accounts['nom'] . ' ' . $fetch_accounts['prenom']; ?></span> </p>
+                        <a href="user_accounts.php?delete=<?= $fetch_accounts['id_users']; ?>" class="delete-btn" onclick="return confirm('Delete this account?');">Delete</a>
                     </div>
                     <?php
                 }

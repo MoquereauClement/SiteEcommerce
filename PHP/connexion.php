@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -14,10 +15,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT id_users, nom, prenom, email FROM users WHERE email='$email' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        $_SESSION['id'] = $user['id_users'];
+        $_SESSION['nom'] = $user['nom'];
+        $_SESSION['prenom'] = $user['prenom'];
+        $_SESSION['email'] = $user['email'];
+
+        if (isset($_POST['souvenir'])) {
+            setcookie("id", $user['id'], time() + (86400 * 30));
+            setcookie("nom", $user['name'], time() + (86400 * 30));
+            setcookie("prenom", $user['prenom'], time() + (86400 * 30));
+            setcookie("email", $user['email'], time() + (86400 * 30));
+        }
         header("Location: ../index.php");
         exit;
     } else {

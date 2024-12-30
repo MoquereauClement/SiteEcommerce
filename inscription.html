@@ -20,11 +20,23 @@
     <div id="inscriptionform">
         <h2>INSCRIPTION</h2>
         <form method="post" action="PHP/inscription.php">
-            <input placeholder="NOM" type="text" id="nom" name="nom" required><br><br>
-            <input placeholder="PRENOM" type="text" id="prenom" name="prenom" required><br><br>
-            <input placeholder="EMAIL" type="email" id="email" name="email" required><br><br>
-            <input placeholder="MOT DE PASSE" type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="S'inscrire">
+            <div class="input-container">
+                <input id="nom" name="nom" type="nom" required placeholder=" ">
+                <label for="nom">Nom</label>
+            </div> 
+            <div class="input-container">
+                <input id="prenom" name="prenom" type="prenom" required placeholder=" ">
+                <label for="prenom">Prenom</label>
+            </div> 
+            <div class="input-container">
+                <input id="email" name="email" type="email" required placeholder=" ">
+                <label for="email">Email</label>
+            </div>        
+            <div class="input-container">
+                <input id="password" name="password" type="password" required placeholder=" ">
+                <label for="password">Password</label>
+            </div> 
+            <input type="submit" id="submit" value="S'inscrire">
         </form>
         <br>
         <p id="erreur-message">Compte déjà existant<br><br></p>

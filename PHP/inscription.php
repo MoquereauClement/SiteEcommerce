@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
         VALUES ('$email', '$nom', '$prenom', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../index.php");
+        header("Location: ../connexion.html");
         exit;
     }
 }

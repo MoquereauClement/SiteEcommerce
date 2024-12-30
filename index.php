@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: connexion.html");
+    exit;
+}
+
+$id = $_SESSION['id'];
+$nom = $_SESSION['nom'];
+$prenom = $_SESSION['prenom'];
+$email = $_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,7 +42,10 @@
             <img id='panier' src='IMG/cartnoir.png' alt='Image de panier'>
         </div>
     </header>
-
+    <?php
+    echo "<h1>Bienvenue $prenom $nom, voici les produits que vous avez consulté recemment :</h1>";
+        
+    ?>
     <div id="produits-container">
         <?php
         // Ajouter la colonne description dans la requête SQL
@@ -39,8 +55,7 @@
             while ($row = $result->fetch_assoc()) {
                 // Inclure la description dans l'appel de la fonction openPopup
                 echo "<div class='produits' onclick='openPopup(" . $row["id_article"] . ", \"" . htmlspecialchars($row["nom"]) . "\", \"" .
-                htmlspecialchars($row["prix"]) . "\", \"" . htmlspecialchars($row["image"]) . "\", \"" . htmlspecialchars($row["description"]) . "\")'>";
-                 
+                    htmlspecialchars($row["prix"]) . "\", \"" . htmlspecialchars($row["image"]) . "\", \"" . htmlspecialchars($row["description"]) . "\")'>";
                 echo "<p class='nom'>" . $row["nom"] . "</p>";
                 echo "<img class='imageProduit' src='" . $row["image"] . "' alt='Image de " . $row["nom"] . "'>";
                 echo "<p class='prix'>" . $row["prix"] . "€</p></div>";

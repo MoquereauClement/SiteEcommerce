@@ -20,7 +20,7 @@ $admin_id = $_SESSION['admin_id'];
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!--custom css file link-->
-    <link rel="stylesheet" href="../css/admin_style.css">
+    
 </head>
 <body>
 
@@ -131,4 +131,62 @@ $admin_id = $_SESSION['admin_id'];
 
 <script src="../js/admin_script.js"></script>
 </body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .dashboard {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    .dashboard .heading {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+    .box {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        width: 300px;
+    }
+    .box h3 {
+        font-size: 22px;
+        color: #1565c0;
+        margin: 10px 0;
+    }
+    .box p {
+        font-size: 16px;
+        color: #555;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #1565c0;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    .btn:hover {
+        background: #003c8f;
+    }
+</style>
+
 </html>

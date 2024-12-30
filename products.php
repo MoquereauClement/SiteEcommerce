@@ -92,214 +92,59 @@ if (isset($_GET['delete'])) {
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!--custom css file link-->
-    <link rel="stylesheet" href="../css/admin_style.css" >
+    
     <style>
- 
-/* General Styles */
 .add-products {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px; margin: auto; padding: 40px; background: #f7f7f7; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .add-products .heading {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
+  text-align: center; font-size: 28px; margin-bottom: 30px; color: #333; text-transform: uppercase; letter-spacing: 2px; font-weight: bold;
 }
-
 .add-products .flex {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  display: flex; flex-wrap: wrap; margin-bottom: 20px;
 }
-
-.add-products .inputBox {
-  width: 100%;
-  margin-bottom: 20px;
+.add-products .inputBox, .add-products .box {
+  width: 100%; margin-bottom: 20px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; color: #333;
 }
-
-.add-products .inputBox span {
-  display: block;
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #666;
-}
-
-.add-products .box {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
-  transition: border-color 0.3s ease;
-}
-
 .add-products .box:focus {
-  outline: none;
-  border-color: #4CAF50;
+  border-color: #4CAF50; outline: none;
 }
-
-.add-products .input {
-  margin-bottom: 20px;
+.add-products label, .add-products .inputBox span {
+  font-size: 16px; margin-bottom: 10px; color: #666; display: block;
 }
-
-.add-products label {
-  display: block;
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #666;
-}
-
 .add-products textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
   resize: vertical;
-  transition: border-color 0.3s ease;
 }
-
-.add-products textarea:focus,
-.add-products .box:focus {
-  outline: none;
-  border-color: #4CAF50;
-}
-
 .add-products .btn {
-  display: inline-block;
-  padding: 12px 20px;
-  background-color: #1565c0;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
+  padding: 12px 20px; background: #1565c0; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; transition: 0.3s;
 }
-
 .add-products .btn:hover {
-  background-color: #DD0000;
+  background: #DD0000;
 }
-
-.add-products .btn-red {
-  background-color: #e53935;
-}
-
-.add-products .btn-grey {
-  background-color: #bdbdbd;
-  color: #333;
-}
-
-.add-products p {
-  font-size: 14px;
-  color: #666;
-}
-
-.add-products span {
-  font-weight: bold;
-  color: #333;
-  font-style: italic;
-}
-
-.add-products .flex::after {
-  content: "";
-  flex: auto;
-}
-
-
-/* Media Queries */
+.add-products .btn-red { background: #e53935; }
+.add-products .btn-grey { background: #bdbdbd; color: #333; }
 @media screen and (max-width: 768px) {
-  .inputBox {
-    width: 100%;
-  }
+  .add-products .inputBox { width: 100%; }
 }
-
 @media screen and (max-width: 480px) {
-  .heading {
-    font-size: 24px;
-  }
+  .add-products .heading { font-size: 24px; }
 }
 .box {
-  width: 300px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; background: #fff; border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.box img {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
+.box img { width: 100%; height: auto; margin-bottom: 10px; }
+.box .name { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px; }
+.box .price, .box .details { font-size: 14px; color: #666; margin-bottom: 10px; }
+.box .flex-btn { display: flex; justify-content: space-between; }
+.box .option-btn, .box .delete-btn {
+  padding: 8px 16px; border-radius: 4px; color: #fff; text-decoration: none; transition: 0.3s;
 }
-
-.box .name {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.box .price {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.box .details {
-  font-size: 14px;
-  color: #999;
-  margin-bottom: 10px;
-}
-
-.box .flex-btn {
-  display: flex;
-  justify-content: space-between;
-}
-
-.box .option-btn {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.box .option-btn:hover {
-  background-color: #45a049;
-}
-
-.box .delete-btn {
-  padding: 8px 16px;
-  background-color: #f44336;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.box .delete-btn:hover {
-  background-color: #d32f2f;
-}
-
- 
-
-
+.box .option-btn { background: #4caf50; }
+.box .option-btn:hover { background: #45a049; }
+.box .delete-btn { background: #f44336; }
+.box .delete-btn:hover { background: #d32f2f; }
 </style>
+
 </head>
 
 

@@ -39,12 +39,12 @@ $email = $_SESSION['email'];
         <h2>VenteExpress</h2>
         <div>
             <a href="connexion.html"><img id='connexion' src='IMG/connexion.png' alt='Image de connexion'></a>
-            <img id='panier' src='IMG/cartnoir.png' alt='Image de panier'>
+            <a href="panier.php"><img id='panier' src='IMG/cartnoir.png' alt='Image de panier'></a>
         </div>
     </header>
     <?php
     echo "<h1>Bienvenue $prenom $nom, voici les produits que vous avez consulté recemment :</h1>";
-        
+
     ?>
     <div id="produits-container">
         <?php
@@ -78,8 +78,13 @@ $email = $_SESSION['email'];
                 <div id="popup-details">
                     <h2>Description:</h2>
                     <p id="popup-description"></p>
-                    <p id="popup-price"></p><br><br>
-                    <button id="popup-button">Ajouter au panier</button>
+                    <p id="popup-price"></p>
+                    <form id="popup-form" action="PHP/panier.php" method="get">
+                        <label for="quantite">Quantité:</label>
+                        <input type="number" id="quantite" name="quantite" min="1" max="3" value="1">
+                        <input type="number" id="id_article" name="id_article">
+                        <input type="submit" id="submit-popup" value="Ajouter au panier">
+                    </form>
                 </div>
             </div>
         </div>

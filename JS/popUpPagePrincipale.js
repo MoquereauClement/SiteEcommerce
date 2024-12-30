@@ -5,7 +5,7 @@ function openPopup(id, name, price, image, description) {
     document.getElementById("popup-price").textContent = "Prix: " + price + "€";
     document.getElementById("popup-image").src = image;
     document.getElementById("popup-description").textContent =description;
-
+    document.getElementById("id_article").value = id;
     // Afficher le pop-up
     document.getElementById("popup").style.display = "block";
 }

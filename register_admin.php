@@ -44,7 +44,7 @@ $admin_id = $_SESSION['admin_id'];
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!--custom css file link-->
-    <link rel="stylesheet" href="../css/admin_style.css">
+    
 </head>
 <body>
     <?php include '../composant/admin_header.php'?>
@@ -61,4 +61,92 @@ $admin_id = $_SESSION['admin_id'];
         </form>
     </section>
 
-      <!--  register admin section ends -->
+</body>
+<style>
+    /* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 100px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h3 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-container .box {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.form-container .box:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.form-container .btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container .btn:hover {
+  background-color: #004ba0;
+}
+
+.message {
+  background-color: #ffeb3b;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+}
+
+.message i {
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 480px) {
+  .form-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form-container h3 {
+    font-size: 22px;
+  }
+}
+
+    </style>

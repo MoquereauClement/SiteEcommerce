@@ -26,7 +26,7 @@ if(isset($_GET['delete'])){
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!--custom css file link-->
-    <link rel="stylesheet" href="../css/admin_style.css">
+    
 </head>
 <body>    
     <?php include '../composant/admin_header.php'; ?>
@@ -70,4 +70,119 @@ if(isset($_GET['delete'])){
     <script src="../js/admin_script.js"></script>
 
 </body>
+<style>
+    /* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.accounts {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.accounts .heading {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 23%;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.box p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.box span {
+  font-weight: bold;
+  color: #333;
+}
+
+.box .option-btn,
+.box .delete-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.box .option-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.box .option-btn:hover {
+  background-color: #45a049;
+}
+
+.box .delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.box .delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.box .flex-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.empty {
+  font-size: 16px;
+  color: #999;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .box {
+    width: 48%;
+  }
+}
+
+@media (max-width: 480px) {
+  .box {
+    width: 100%;
+  }
+  .accounts {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+</style>
 </html>

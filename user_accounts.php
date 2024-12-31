@@ -13,20 +13,12 @@ if (isset($_GET['delete'])) {
     $delet_id = $_GET['delete'];
 
     // Supprimer l'utilisateur
-    $delete_users = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+    $delete_users = $conn->prepare("DELETE FROM `users` WHERE id_users = ?");
     $delete_users->execute([$delet_id]);
 
     // Supprimer les commandes associées
     $delete_order = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
     $delete_order->execute([$delet_id]);
-
-    // Supprimer le panier associé
-    $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
-    $delete_cart->execute([$delet_id]);
-
-    // Supprimer la liste de souhaits associée
-    $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
-    $delete_wishlist->execute([$delet_id]);
 
     // Supprimer les messages associés
     $delete_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
@@ -48,67 +40,9 @@ if (isset($_GET['delete'])) {
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS File Link -->
-    <link rel="stylesheet" href="../css/admin_style.css">
+   
 </head>
 
-<style>
-/* Styles pour la section accounts */
-.accounts {
-  margin-top: 30px;
-}
-
-.heading {
-  text-align: center;
-  font-size: 24px;
-  color: white;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-
-.box-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-.box {
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  color: #333;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-}
-
-.box p {
-  margin: 0;
-  margin-bottom: 10px;
-}
-
-.box p span {
-  font-weight: bold;
-}
-
-.delete-btn {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: #e53935;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.empty {
-  text-align: center;
-  margin-top: 20px;
-  font-style: italic;
-}
-</style>
 
 <body>
     <?php include '../composant/admin_header.php'; ?>
@@ -125,9 +59,9 @@ if (isset($_GET['delete'])) {
                 while ($fetch_accounts = $select_account->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <div class="box">
-                        <p> User ID: <span><?= $fetch_accounts['id']; ?></span> </p>
-                        <p> Username: <span><?= $fetch_accounts['name']; ?></span> </p>
-                        <a href="user_accounts.php?delete=<?= $fetch_accounts['id']; ?>" class="delete-btn" onclick="return confirm('Delete this account?');">Delete</a>
+                        <p> User ID: <span><?= $fetch_accounts['id_users']; ?></span> </p>
+                        <p> Username: <span><?= $fetch_accounts['nom'] . ' ' . $fetch_accounts['prenom']; ?></span> </p>
+                        <a href="user_accounts.php?delete=<?= $fetch_accounts['id_users']; ?>" class="delete-btn" onclick="return confirm('Delete this account?');">Delete</a>
                     </div>
                     <?php
                 }
@@ -137,9 +71,90 @@ if (isset($_GET['delete'])) {
             ?>
         </div>
     </section>
-    <!-- User Accounts Section Ends -->
-
-    <!-- Custom JS File Link -->
-    <script src="../js/admin_script.js"></script>
+   
 </body>
+<style>
+  /* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+/* Container for User Accounts */
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.box {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  width: 48%;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.box:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.box p {
+  font-size: 16px;
+  color: #333;
+}
+
+.box span {
+  font-weight: bold;
+  color: #555;
+}
+
+.delete-btn {
+  display: inline-block;
+  background-color: #f44336;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.empty {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .box-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box {
+    width: 90%;
+  }
+}
+
+  </style>
 </html>

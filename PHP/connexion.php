@@ -26,11 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_PO
         $_SESSION['email'] = $user['email'];
 
         if (isset($_POST['souvenir'])) {
-            setcookie("id", $user['id'], time() + (86400 * 30));
-            setcookie("nom", $user['name'], time() + (86400 * 30));
-            setcookie("prenom", $user['prenom'], time() + (86400 * 30));
-            setcookie("email", $user['email'], time() + (86400 * 30));
+            setcookie("id", $_SESSION['id'], time() + (86400 * 30), '/');
+            setcookie("nom", $_SESSION['nom'], time() + (86400 * 30), '/'); 
+            setcookie("prenom", $_SESSION['prenom'], time() + (86400 * 30), '/'); 
+            setcookie("email", $_SESSION['email'], time() + (86400 * 30), '/');
         }
+
         header("Location: ../index.php");
         exit;
     } else {

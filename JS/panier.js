@@ -1,4 +1,3 @@
-console.log(document.querySelectorAll('.close'));
 document.querySelectorAll('.close').forEach(closeButton => {
     closeButton.addEventListener('click', function () {
         const article = this.parentElement;

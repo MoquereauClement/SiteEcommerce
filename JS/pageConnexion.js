@@ -2,6 +2,11 @@ const params = new URLSearchParams(window.location.search);
 if (params.has('error') && params.get('error') == '1') {
     document.getElementById('erreur-message').style.display = 'contents';
 }
+
+const param = new URLSearchParams(window.location.search);
+if (param.has('deconnexion') && param.get('deconnexion') == '1') {
+    alert('Vous avez été déconnecté.');
+}
     
 document.getElementById('inscriptionform').addEventListener('submit', function(event) {
     const email = document.getElementById('email').value;

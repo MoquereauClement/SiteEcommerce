@@ -10,6 +10,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("La connexion a échoué: " . $conn->connect_error);
 }
+if(!isset($_SESSION['id'])){
+    header("Location: ../connexion.html");
+    exit;
+}
 $id_user = $_SESSION['id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['quantite']) && isset($_GET['id_article'])) {

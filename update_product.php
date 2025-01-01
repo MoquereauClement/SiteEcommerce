@@ -10,94 +10,48 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 if (isset($_POST['update'])) {
-    $pid = $_POST['pid'];
-    $pid = filter_var($pid, FILTER_SANITIZE_STRING);
-    $name = $_POST['name'];
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
-    $price = $_POST['price'];
-    $price = filter_var($price, FILTER_SANITIZE_STRING);
-    $details = $_POST['details'];
-    $details = filter_var($details, FILTER_SANITIZE_STRING);
+    $id_article = $_POST['id_article'];
+    $id_article = filter_var($id_article, FILTER_SANITIZE_STRING);
+    $nom = $_POST['nom'];
+    $nom = filter_var($nom, FILTER_SANITIZE_STRING);
+    $prix = $_POST['prix'];
+    $prix = filter_var($prix, FILTER_SANITIZE_STRING);
+    $description = $_POST['description'];
+    $description = filter_var($description, FILTER_SANITIZE_STRING);
 
-    $update_product = $conn->prepare("UPDATE `products` SET name = ?, details = ?, price =? WHERE id = ?");
-    $update_product->execute([$name, $details, $price, $pid]);
+    $update_article = $conn->prepare("UPDATE `article` SET nom = ?, description = ?, prix = ? WHERE id_rticle = ?");
+    $update_article->execute([$nom, $description, $prix, $id_article]);
 
-    $message[] = 'Product updated!';
+    $message[] = 'Article updated!';
 
-    $old_image_01 = $_POST['old_image_01'];
-    $image_01 = $_FILES['image_01']['name'];
-    $image_01 = filter_var($image_01, FILTER_SANITIZE_STRING);
-    $image_01_size = $_FILES['image_01']['size'];
-    $image_01_tmp_name = $_FILES['image_01']['tmp_name'];
-    $image_01_folder = '../uploaded_img/' . $image_01;
+    $old_image = $_POST['old_image'];
+    $image = $_FILES['image']['name'];
+    $image = filter_var($image, FILTER_SANITIZE_STRING);
+    $image_size = $_FILES['image']['size'];
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_folder = '../uploaded_img/' . $image;
 
-    if (!empty($image_01)) {
-        if ($image_01_size > 2000000) {
+    if (!empty($image)) {
+        if ($image_size > 2000000) {
             $message[] = 'Image size is too large!';
         } else {
-            $update_image_01 = $conn->prepare("UPDATE `products` SET image_01 = ? WHERE id = ?");
-            $update_image_01->execute([$image_01, $pid]);
-            move_uploaded_file($image_01_tmp_name, $image_01_folder);
-            unlink('../uploaded_img/' . $old_image_01);
-            $message[] = 'Image 01 updated!';
-        }
-    }
-
-    $old_image_02 = $_POST['old_image_02'];
-    $image_02 = $_FILES['image_02']['name'];
-    $image_02 = filter_var($image_02, FILTER_SANITIZE_STRING);
-    $image_02_size = $_FILES['image_02']['size'];
-    $image_02_tmp_name = $_FILES['image_02']['tmp_name'];
-    $image_02_folder = '../uploaded_img/' . $image_02;
-
-    if (!empty($image_02)) {
-        if ($image_02_size > 2000000) {
-            $message[] = 'Image size is too large!';
-        } else {
-            $update_image_02 = $conn->prepare("UPDATE `products` SET image_02 = ? WHERE id = ?");
-            $update_image_02->execute([$image_02, $pid]);
-            move_uploaded_file($image_02_tmp_name, $image_02_folder);
-            unlink('../uploaded_img/' . $old_image_02);
-            $message[] = 'Image 02 updated!';
-        }
-    }
-
-    $old_image_03 = $_POST['old_image_03'];
-    $image_03 = $_FILES['image_03']['name'];
-    $image_03 = filter_var($image_03, FILTER_SANITIZE_STRING);
-    $image_03_size = $_FILES['image_03']['size'];
-    $image_03_tmp_name = $_FILES['image_03']['tmp_name'];
-    $image_03_folder = '../uploaded_img/' . $image_03;
-
-    if (!empty($image_03)) {
-        if ($image_03_size > 2000000) {
-            $message[] = 'Image size is too large!';
-        } else {
-            $update_image_03 = $conn->prepare("UPDATE `products` SET image_03 = ? WHERE id = ?");
-            $update_image_03->execute([$image_03, $pid]);
-            move_uploaded_file($image_03_tmp_name, $image_03_folder);
-            unlink('../uploaded_img/' . $old_image_03);
-            $message[] = 'Image 03 updated!';
+            $update_image = $conn->prepare("UPDATE `article` SET image = ? WHERE id_rticle = ?");
+            $update_image->execute([$image, $id_article]);
+            move_uploaded_file($image_tmp_name, $image_folder);
+            unlink('../uploaded_img/' . $old_image);
+            $message[] = 'Image updated!';
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Product</title>
-
-    <!--font awesome cdn link -->
+    <title>Update Article</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!--custom css file link-->
-    
 </head>
-
 <style>
 
 
@@ -241,79 +195,43 @@ label {
   }
 }
 
-
-
-
 </style>
-
 <body>
     <?php include '../composant/admin_header.php'; ?>
-
-    <!--section update product starts-->
     <section class="update-product">
-    <h1 class="heading">Update Product</h1>
+    <h1 class="heading">Update Article</h1>
     <?php
     $update_id = $_GET['update'];
-    $show_products = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
-    $show_products->execute([$update_id]);
-    if ($show_products->rowCount() > 0) {
-        while ($fetch_products = $show_products->fetch(PDO::FETCH_ASSOC)) {
+    $show_articles = $conn->prepare("SELECT * FROM `article` WHERE id_rticle = ?");
+    $show_articles->execute([$update_id]);
+    if ($show_articles->rowCount() > 0) {
+        while ($fetch_articles = $show_articles->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <form action="" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="pid" value="<?= isset($fetch_products['id']) ? htmlspecialchars($fetch_products['id']) : ''; ?>">
-                <input type="hidden" name="old_image_01" value="<?= isset($fetch_products['image_01']) ? htmlspecialchars($fetch_products['image_01']) : ''; ?>">
-                <input type="hidden" name="old_image_02" value="<?= isset($fetch_products['image_02']) ? htmlspecialchars($fetch_products['image_02']) : ''; ?>">
-                <input type="hidden" name="old_image_03" value="<?= isset($fetch_products['image_03']) ? htmlspecialchars($fetch_products['image_03']) : ''; ?>">
-                <div class="image-container">
-                    <div class="main-image">
-                        <img src="../uploaded_img/<?= isset($fetch_products['image_01']) ? htmlspecialchars($fetch_products['image_01']) : ''; ?>" alt="">
-                    </div>
-                    <div class="sub-images">
-                        <img src="../uploaded_img/<?= isset($fetch_products['image_01']) ? htmlspecialchars($fetch_products['image_01']) : ''; ?>" alt="">
-                        <img src="../uploaded_img/<?= isset($fetch_products['image_02']) ? htmlspecialchars($fetch_products['image_02']) : ''; ?>" alt="">
-                        <img src="../uploaded_img/<?= isset($fetch_products['image_03']) ? htmlspecialchars($fetch_products['image_03']) : ''; ?>" alt="">
-                    </div>
-                </div>
-                <label for="name">Update Name</label>
-                <input type="text" name="name" required placeholder="Enter product name" maxlength="100" class="box" value="<?= isset($fetch_products['name']) ? htmlspecialchars($fetch_products['name']) : ''; ?>">
-                <label for="price">Update Price</label>
-                <input type="number" name="price" required placeholder="Enter product price" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" class="box" value="<?= isset($fetch_products['price']) ? htmlspecialchars($fetch_products['price']) : ''; ?>">
-                <label for="details">Update Details</label>
-                <textarea name="details" class="box" placeholder="Enter product details" required maxlength="500" cols="30" rows="10"><?= isset($fetch_products['details']) ? htmlspecialchars($fetch_products['details']) : ''; ?></textarea>
-                <label for="image_01">Update Image 01</label>
-                <input type="file" name="image_01" class="box" accept="image/jpg, image/jpeg, image/webp, image/png">
-                <label for="image_02">Update Image 02</label>
-                <input type="file" name="image_02" class="box" accept="image/jpg, image/jpeg, image/webp, image/png">
-                <label for="image_03">Update Image 03</label>
-                <input type="file" name="image_03" class="box" accept="image/jpg, image/jpeg, image/webp, image/png">
+                <input type="hidden" name="id_article" value="<?= isset($fetch_articles['id_rticle']) ? htmlspecialchars($fetch_articles['id_rticle']) : ''; ?>">
+                <input type="hidden" name="old_image" value="<?= isset($fetch_articles['image']) ? htmlspecialchars($fetch_articles['image']) : ''; ?>">
+                <label for="nom">Update Name</label>
+                <input type="text" name="nom" required placeholder="Enter article name" maxlength="100" class="box" value="<?= isset($fetch_articles['nom']) ? htmlspecialchars($fetch_articles['nom']) : ''; ?>">
+                <label for="prix">Update Price</label>
+                <input type="number" name="prix" required placeholder="Enter article price" min="0" max="9999999999" class="box" value="<?= isset($fetch_articles['prix']) ? htmlspecialchars($fetch_articles['prix']) : ''; ?>">
+                <label for="description">Update Description</label>
+                <textarea name="description" class="box" placeholder="Enter article description" required maxlength="500" cols="30" rows="10"><?= isset($fetch_articles['description']) ? htmlspecialchars($fetch_articles['description']) : ''; ?></textarea>
+                <label for="image">Update Image</label>
+                <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/webp, image/png">
                 <div class="flex-btn">
                     <input type="submit" value="Update" class="btn" name="update">
-                    <a href="products.php" class="option-btn">Go back</a>
+                    <a href="articles.php" class="option-btn">Go back</a>
                 </div>
             </form>
     <?php
         }
     } else {
-        echo '<p class="empty">No products added yet!</p>';
+        echo '<p class="empty">No articles found!</p>';
     }
     ?>
 </section>
-
-    <!--section update product ends-->
-
-    <!--custom js file link-->
-    <script src="../js/admin_script.js"></script>
     <script>
-        subImages = document.querySelectorAll('.update-product .image-container .sub-images img');
-        mainImages = document.querySelector('.update-product .image-container .main-image img');
-
-        subImages.forEach(images => {
-            images.onclick = () => {
-                let src = images.getAttribute('src');
-                mainImages.src = src;
-            }
-        });
+        // Custom script if needed
     </script>
 </body>
-
 </html>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 $admin_id = $_SESSION['admin_id'];
 
-// Ajouter un nouvel article
+// Ajouter un nouveau produit
 if (isset($_POST['add_product'])) {
     $name = $_POST['name'];
     $name = filter_var($name, FILTER_SANITIZE_STRING);
@@ -25,34 +25,34 @@ if (isset($_POST['add_product'])) {
     $image_tmp_name = $_FILES['image_01']['tmp_name'];
     $image_folder = '../uploaded_img/' . $image;
 
-    $select_articles = $conn->prepare("SELECT * FROM `articles` WHERE nom = ?");
-    $select_articles->execute([$name]);
+    $select_products = $conn->prepare("SELECT * FROM `produits` WHERE nom_produit = ?");
+    $select_products->execute([$name]);
 
-    if ($select_articles->rowCount() > 0) {
-        $message[] = 'Le nom de l\'article existe déjà !';
+    if ($select_products->rowCount() > 0) {
+        $message[] = 'Le nom du produit existe déjà !';
     } else {
         if ($image_size > 2000000) {
             $message[] = 'La taille de l\'image est trop grande.';
         } else {
             move_uploaded_file($image_tmp_name, $image_folder);
 
-            $insert_article = $conn->prepare("INSERT INTO `articles` (nom, prix, image, description) VALUES (?,?,?,?)");
-            $insert_article->execute([$name, $price, $image, $details]);
+            $insert_product = $conn->prepare("INSERT INTO `produits` (nom_produit, prix_produit, image_produit, description_produit) VALUES (?,?,?,?)");
+            $insert_product->execute([$name, $price, $image, $details]);
 
-            $message[] = 'Nouvel article ajouté avec succès !';
+            $message[] = 'Nouveau produit ajouté avec succès !';
         }
     }
 }
 
-// Supprimer un article
+// Supprimer un produit
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
-    $delete_article_image = $conn->prepare("SELECT * FROM `articles` WHERE id_article = ?");
-    $delete_article_image->execute([$delete_id]);
-    $fetch_deleted_image = $delete_article_image->fetch(PDO::FETCH_ASSOC);
-    unlink('../uploaded_img/' . $fetch_deleted_image['image']);
-    $delete_article = $conn->prepare("DELETE FROM `articles` WHERE id_article = ?");
-    $delete_article->execute([$delete_id]);
+    $delete_product_image = $conn->prepare("SELECT * FROM `produits` WHERE id_produit = ?");
+    $delete_product_image->execute([$delete_id]);
+    $fetch_deleted_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
+    unlink('../uploaded_img/' . $fetch_deleted_image['image_produit']);
+    $delete_product = $conn->prepare("DELETE FROM `produits` WHERE id_produit = ?");
+    $delete_product->execute([$delete_id]);
     header('location:products.php');
 }
 ?>
@@ -63,10 +63,9 @@ if (isset($_GET['delete'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles</title>
+    <title>Produits</title>
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         .add-products {
   max-width: 600px; margin: auto; padding: 40px; background: #f7f7f7; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -122,58 +121,58 @@ if (isset($_GET['delete'])) {
 <body>
     <?php include '../composant/admin_header.php'; ?>
 
-    <!-- Ajouter des articles -->
+    <!-- Ajouter des produits -->
     <section class="add-products">
-        <h1 class="heading">Ajouter un Article</h1>
+        <h1 class="heading">Ajouter un Produit</h1>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="flex">
                 <div class="inputBox">
-                    <span>Nom de l'Article (requis)</span>
-                    <input type="text" name="name" required placeholder="Entrez le nom de l'article" maxlength="100" class="box">
+                    <span>Nom du Produit (requis)</span>
+                    <input type="text" name="name" required placeholder="Entrez le nom du produit" maxlength="100" class="box">
                 </div>
                 <div class="inputBox">
-                    <span>Prix de l'Article (requis)</span>
-                    <input type="number" name="price" required placeholder="Entrez le prix de l'article" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" class="box">
+                    <span>Prix du Produit (requis)</span>
+                    <input type="number" name="price" required placeholder="Entrez le prix du produit" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" class="box">
                 </div>
                 <div class="inputBox">
-                    <span>Image de l'Article (requis)</span>
+                    <span>Image du Produit (requis)</span>
                     <input type="file" name="image_01" class="box" accept="image/jpg, image/jpeg, image/webp, image/png" required>
                 </div>
             </div>
             <div class="input">
-                <label for="details">Description de l'Article</label>
-                <textarea name="details" class="box" placeholder="Entrez les détails de l'article" required maxlength="500" cols="30" rows="10"></textarea>
+                <label for="details">Description du Produit</label>
+                <textarea name="details" class="box" placeholder="Entrez les détails du produit" required maxlength="500" cols="30" rows="10"></textarea>
             </div>
-            <input type="submit" value="Ajouter l'Article" name="add_product" class="btn">
+            <input type="submit" value="Ajouter le Produit" name="add_product" class="btn">
         </form>
     </section>
 
-    <!-- Afficher les articles -->
+    <!-- Afficher les produits -->
     <section class="show-products">
-        <h1 class="heading">Afficher les Articles</h1>
+        <h1 class="heading">Afficher les Produits</h1>
         <div class="swiper-wrapper">
             <?php
-            $show_articles = $conn->prepare("SELECT * FROM `articles`");
-            $show_articles->execute();
-            if ($show_articles->rowCount() > 0) {
-                while ($fetch_articles = $show_articles->fetch(PDO::FETCH_ASSOC)) {
+            $show_products = $conn->prepare("SELECT * FROM `produits`");
+            $show_products->execute();
+            if ($show_products->rowCount() > 0) {
+                while ($fetch_products = $show_products->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <div class="swiper-slide">
                 <div class="box">
-                    <img src="../uploaded_img/<?php echo $fetch_articles['image']; ?>" alt="">
-                    <div class="name"><?php echo $fetch_articles['nom']; ?></div>
-                    <div class="price">DH<?php echo $fetch_articles['prix']; ?>/-</div>
-                    <div class="details"><?php echo $fetch_articles['description']; ?></div>
+                    <img src="../uploaded_img/<?php echo $fetch_products['image_produit']; ?>" alt="">
+                    <div class="name"><?php echo $fetch_products['nom_produit']; ?></div>
+                    <div class="price">DH<?php echo $fetch_products['prix_produit']; ?>/-</div>
+                    <div class="details"><?php echo $fetch_products['description_produit']; ?></div>
                     <div class="flex-btn">
-                        <a href="update_product.php?update=<?php echo $fetch_articles['id_article']; ?>" class="option-btn">Mettre à jour</a>
-                        <a href="products.php?delete=<?php echo $fetch_articles['id_article']; ?>" class="delete-btn" onclick="return confirm('Supprimer cet article ?')">Supprimer</a>
+                        <a href="update_product.php?update=<?php echo $fetch_products['id_produit']; ?>" class="option-btn">Mettre à jour</a>
+                        <a href="products.php?delete=<?php echo $fetch_products['id_produit']; ?>" class="delete-btn" onclick="return confirm('Supprimer ce produit ?')">Supprimer</a>
                     </div>
                 </div>
             </div>
             <?php
                 }
             } else {
-                echo '<p class="empty">Aucun article ajouté pour le moment !</p>';
+                echo '<p class="empty">Aucun produit ajouté pour le moment !</p>';
             }
             ?>
         </div>

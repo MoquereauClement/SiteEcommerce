@@ -19,7 +19,7 @@ if (isset($_POST['update'])) {
     $description = $_POST['description'];
     $description = filter_var($description, FILTER_SANITIZE_STRING);
 
-    $update_article = $conn->prepare("UPDATE `article` SET nom = ?, description = ?, prix = ? WHERE id_rticle = ?");
+    $update_article = $conn->prepare("UPDATE `articles` SET nom = ?, description = ?, prix = ? WHERE id_rticle = ?");
     $update_article->execute([$nom, $description, $prix, $id_article]);
 
     $message[] = 'Article updated!';
@@ -35,7 +35,7 @@ if (isset($_POST['update'])) {
         if ($image_size > 2000000) {
             $message[] = 'Image size is too large!';
         } else {
-            $update_image = $conn->prepare("UPDATE `article` SET image = ? WHERE id_rticle = ?");
+            $update_image = $conn->prepare("UPDATE `articles` SET image = ? WHERE id_rticle = ?");
             $update_image->execute([$image, $id_article]);
             move_uploaded_file($image_tmp_name, $image_folder);
             unlink('../uploaded_img/' . $old_image);
@@ -202,7 +202,7 @@ label {
     <h1 class="heading">Update Article</h1>
     <?php
     $update_id = $_GET['update'];
-    $show_articles = $conn->prepare("SELECT * FROM `article` WHERE id_rticle = ?");
+    $show_articles = $conn->prepare("SELECT * FROM `articles` WHERE id_rticle = ?");
     $show_articles->execute([$update_id]);
     if ($show_articles->rowCount() > 0) {
         while ($fetch_articles = $show_articles->fetch(PDO::FETCH_ASSOC)) {

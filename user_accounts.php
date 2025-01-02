@@ -14,13 +14,11 @@ if (isset($_GET['delete'])) {
     if ($delete_id) {
         $conn->beginTransaction();
         try {
-            // Supprimer les informations utilisateur
+            // Supprimer les info user
             $delete_user = $conn->prepare("DELETE FROM `users` WHERE id_users = ?");
             $delete_user->execute([$delete_id]);
 
-            // Supprimer les commandes de l'utilisateur
-            $delete_orders = $conn->prepare("DELETE FROM `commande` WHERE id_users = ?");
-            $delete_orders->execute([$delete_id]);
+            
 
             
             $conn->commit();

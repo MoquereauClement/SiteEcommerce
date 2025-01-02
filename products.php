@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 $admin_id = $_SESSION['admin_id'];
 
-// Ajouter un nouvel article
+// Ajouter un nouvel product
 if (isset($_POST['add_product'])) {
     $name = $_POST['name'];
     $name = filter_var($name, FILTER_SANITIZE_STRING);
@@ -25,7 +25,7 @@ if (isset($_POST['add_product'])) {
     $image_tmp_name = $_FILES['image_01']['tmp_name'];
     $image_folder = '../uploaded_img/' . $image;
 
-    $select_products = $conn->prepare("SELECT * FROM `article` WHERE nom = ?");
+    $select_products = $conn->prepare("SELECT * FROM `articles` WHERE nom = ?");
     $select_products->execute([$name]);
 
     if ($select_products->rowCount() > 0) {
@@ -36,7 +36,7 @@ if (isset($_POST['add_product'])) {
         } else {
             move_uploaded_file($image_tmp_name, $image_folder);
 
-            $insert_product = $conn->prepare("INSERT INTO `article` (nom, prix, image, description) VALUES (?,?,?,?)");
+            $insert_product = $conn->prepare("INSERT INTO `articles` (nom, prix, image, description) VALUES (?,?,?,?)");
             $insert_product->execute([$name, $price, $image, $details]);
 
             $message[] = 'Nouvel article ajouté avec succès !';
@@ -47,11 +47,11 @@ if (isset($_POST['add_product'])) {
 // Supprimer un article
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
-    $delete_product_image = $conn->prepare("SELECT * FROM `article` WHERE id_article = ?");
+    $delete_product_image = $conn->prepare("SELECT * FROM `articles` WHERE id_article = ?");
     $delete_product_image->execute([$delete_id]);
     $fetch_deleted_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
     unlink('../uploaded_img/' . $fetch_deleted_image['image']);
-    $delete_product = $conn->prepare("DELETE FROM `article` WHERE id_article = ?");
+    $delete_product = $conn->prepare("DELETE FROM `articles` WHERE id_article = ?");
     $delete_product->execute([$delete_id]);
     header('location:products.php');
 }
@@ -189,7 +189,7 @@ if (isset($_GET['delete'])) {
         <h1 class="heading">Afficher les Articles</h1>
         <div class="swiper-wrapper">
             <?php
-            $show_products = $conn->prepare("SELECT * FROM `article`");
+            $show_products = $conn->prepare("SELECT * FROM `articles`");
             $show_products->execute();
             if ($show_products->rowCount() > 0) {
                 while ($fetch_products = $show_products->fetch(PDO::FETCH_ASSOC)) {

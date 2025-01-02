@@ -19,27 +19,19 @@
     </header>
     <div id='connexionform'>
         <h2>Connexion</h2>
-        <form method="post" action="PHP/connexion.php">
+        <form method="post" action="PHP/connexionadmin.php">
             <div class="input-container">
-                <input id="email" name="email" type="email" required placeholder=" ">
-                <label for="email">Email</label>
+                <input id="nom" name="nom" type="text" required placeholder=" ">
+                <label for="nom">Nom</label>
             </div>        
             <div class="input-container">
                 <input id="password" name="password" type="password" required placeholder=" ">
                 <label for="password">Password</label>
             </div>
-            <div id="souvenir-ligne">
-                <input type="checkbox" id="souvenir" name="souvenir"><label for="souvenir">Se souvenir de moi</label>
-            </div>
             <input type="submit" id="submit" value="Se connecter" class="inputconnexion">
-            <a href='inscription.html'>
-                <p>S'inscrire</p>
-            </a>
-            <a href='connexionadmin.html'>
-                <p>Se connecter en tant qu'administrateur</p>
-            </a>
+            <br><br>
+            <p id="erreur-message">Email ou mot de passe incorrect<br><br></p>
         </form>
-        <p id="erreur-message">Email ou mot de passe incorrect<br><br></p>
     </div>
     <script src="JS/pageConnexion.js"></script>
 </body>

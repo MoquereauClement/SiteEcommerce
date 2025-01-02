@@ -30,7 +30,7 @@ $admin_id = $_SESSION['admin_id'];
 
         <div class="box">
             <?php 
-                $select_products = $conn->prepare("SELECT * FROM products");
+                $select_products = $conn->prepare("SELECT * FROM articles");
                 $select_products->execute();
                 $numbers_of_products = $select_products->rowCount();
             ?>
@@ -61,16 +61,7 @@ $admin_id = $_SESSION['admin_id'];
             <a href="admin_accounts.php" class="btn">See admins</a>
         </div>
 
-        <div class="box">
-            <?php
-                $select_messages = $conn->prepare("SELECT * FROM `messages`");
-                $select_messages->execute();
-                $numbers_of_messages = $select_messages->rowCount();
-            ?>
-            <h3><?= $numbers_of_messages; ?></h3>
-            <p>New messages</p>
-            <a href="messages.php" class="btn">See messages</a>
-        </div>
+        
 
     </div>
 </section>

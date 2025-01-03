@@ -31,7 +31,7 @@
             <nav class="navbar">
                 <a href="dashbord.php">Home</a>
                 <a href="Products.php">Products</a>
-                <a href="Placed_orders.php">Orders</a>
+              
                 <a href="admin_accounts.php">Admins</a>
                 <a href="user_accounts.php">Users</a>
                 <a href="messages.php">Messages</a>

@@ -34,7 +34,7 @@
               
                 <a href="admin_accounts.php">Admins</a>
                 <a href="user_accounts.php">Users</a>
-                <a href="messages.php">Messages</a>
+                
             </nav>
 
             <div class="dropdown">

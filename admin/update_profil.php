@@ -15,7 +15,7 @@ $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
 
 if(isset($_POST['submit'])){
     $name = $_POST['name'];
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $name = filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $old_password = $_POST['old_password'];
     $new_password = $_POST['new_password'];

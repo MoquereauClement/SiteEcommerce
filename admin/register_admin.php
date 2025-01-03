@@ -7,11 +7,11 @@ if(!isset($_SESSION['admin_id'])){
 };
 if(isset($_POST['submit'])){
     $name = $_POST['name']; 
-    $name = filter_var($name,FILTER_SANITIZE_STRING);
+    $name = filter_var($name,FILTER_SANITIZE_SPECIAL_CHARS);
     $password = sha1($_POST['password']); 
-    $password = filter_var($password,FILTER_SANITIZE_STRING);
+    $password = filter_var($password,FILTER_SANITIZE_SPECIAL_CHARS);
     $cpassword = sha1($_POST['cpassword']); 
-    $cpassword = filter_var($cpassword,FILTER_SANITIZE_STRING);
+    $cpassword = filter_var($cpassword,FILTER_SANITIZE_SPECIAL_CHARS);
    
     $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ? ");
     $select_admin->execute([$name]);
@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
         $message[]='confirm password not matched !';
        }
        else{
-        $insert_admin=$conn->preapre("insert into 'admins'(name,password) values(?,?)");
+        $insert_admin=$conn->prepare("insert into 'admins'(name,password) values(?,?)");
         $insert_admin->execute([$name,$cpassword]);
         $message[] = 'new admin registered !';
        }

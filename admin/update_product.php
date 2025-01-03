@@ -11,13 +11,13 @@ if (!isset($_SESSION['admin_id'])) {
 
 if (isset($_POST['update'])) {
     $id_article = $_POST['id_article'];
-    $id_article = filter_var($id_article, FILTER_SANITIZE_STRING);
+    $id_article = filter_var($id_article, FILTER_SANITIZE_SPECIAL_CHARS);
     $nom = $_POST['nom'];
-    $nom = filter_var($nom, FILTER_SANITIZE_STRING);
+    $nom = filter_var($nom, FILTER_SANITIZE_SPECIAL_CHARS);
     $prix = $_POST['prix'];
-    $prix = filter_var($prix, FILTER_SANITIZE_STRING);
+    $prix = filter_var($prix, FILTER_SANITIZE_SPECIAL_CHARS);
     $description = $_POST['description'];
-    $description = filter_var($description, FILTER_SANITIZE_STRING);
+    $description = filter_var($description, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $update_article = $conn->prepare("UPDATE `articles` SET nom = ?, description = ?, prix = ? WHERE id_rticle = ?");
     $update_article->execute([$nom, $description, $prix, $id_article]);
@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 
     $old_image = $_POST['old_image'];
     $image = $_FILES['image']['name'];
-    $image = filter_var($image, FILTER_SANITIZE_STRING);
+    $image = filter_var($image, FILTER_SANITIZE_SPECIAL_CHARS);
     $image_size = $_FILES['image']['size'];
     $image_tmp_name = $_FILES['image']['tmp_name'];
     $image_folder = '../uploaded_img/' . $image;

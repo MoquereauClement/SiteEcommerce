@@ -11,16 +11,16 @@ $admin_id = $_SESSION['admin_id'];
 // Ajouter un nouvel product
 if (isset($_POST['add_product'])) {
     $name = $_POST['name'];
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $name = filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $price = $_POST['price'];
-    $price = filter_var($price, FILTER_SANITIZE_STRING);
+    $price = filter_var($price, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $details = $_POST['details'];
-    $details = filter_var($details, FILTER_SANITIZE_STRING);
+    $details = filter_var($details, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $image = $_FILES['image_01']['name'];
-    $image = filter_var($image, FILTER_SANITIZE_STRING);
+    $image = filter_var($image, FILTER_SANITIZE_SPECIAL_CHARS);
     $image_size = $_FILES['image_01']['size'];
     $image_tmp_name = $_FILES['image_01']['tmp_name'];
     $image_folder = '../uploaded_img/' . $image;

@@ -43,13 +43,13 @@ $admin_id = $_SESSION['admin_id'];
 
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!--custom css file link-->
+    
     
 </head>
 <body>
     <?php include '../composant/admin_header.php'?>
 
-  <!--  register admin section starts -->
+  <!--  register admin section  -->
   <section class="form-container">
         <form action="" method="post">
             <h3>register new</h3>
@@ -63,7 +63,7 @@ $admin_id = $_SESSION['admin_id'];
 
 </body>
 <style>
-    /* Global Styles */
+    
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;

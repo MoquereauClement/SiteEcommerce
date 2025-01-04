@@ -66,7 +66,7 @@ $admin_id = $_SESSION['admin_id'];
     </div>
 </section>
 
-<script src="../js/admin_script.js"></script>
+
 </body>
 <style>
     body {

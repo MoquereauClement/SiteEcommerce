@@ -125,7 +125,7 @@ if (isset($_GET['delete'])) {
     border-radius: 6px;
     cursor: pointer;
     font-size: 18px;
-    width: 100%; /* Bouton qui occupe toute la largeur */
+    width: 100%; 
     transition: 0.3s;
 }
 
@@ -215,7 +215,7 @@ if (isset($_GET['delete'])) {
 
     .box .flex-btn {
         display: flex;
-        justify-content: space-between; /* Boutons alignés à gauche et à droite */
+        justify-content: space-between; 
         gap: 10px; /* Espacement entre les boutons */
     }
 
@@ -231,7 +231,7 @@ if (isset($_GET['delete'])) {
     }
 
     .box .option-btn {
-        background: #4caf50; /* Vert pour l'option */
+        background: #4caf50;
     }
 
     .box .option-btn:hover {
@@ -239,7 +239,7 @@ if (isset($_GET['delete'])) {
     }
 
     .box .delete-btn {
-        background: #f44336; /* Rouge pour la suppression */
+        background: #f44336; 
     }
 
     .box .delete-btn:hover {

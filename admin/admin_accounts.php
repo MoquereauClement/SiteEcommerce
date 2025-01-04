@@ -46,7 +46,7 @@ if(isset($_GET['delete'])){
                     ?>
                     <div class="box">
                         <p> admin id : <span><?= $fetch_accounts['id'];?></span> </p>
-                        <p> username : <span><?= $fetch_accounts['Name'];?></span> </p>
+                        <p> username : <span><?= $fetch_accounts['name'];?></span> </p>
                         <div class="flex-btn">
                             <?php
                             if($fetch_accounts['id'] == $admin_id){

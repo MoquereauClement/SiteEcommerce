@@ -116,6 +116,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
         }
     }
     ?>
+    <br>
     <h1>Produits</h1>
     <div class="produits-container">
         <?php

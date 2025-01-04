@@ -21,7 +21,7 @@ if(isset($_GET['delete'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin accounts </title>
+    <title>Admin accounts </title>
 
     <!--font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,7 +36,7 @@ if(isset($_GET['delete'])){
         <div class="box-container">
             <div class="box">
                 <p>register new admin</p>
-                <a href="register_admin.php" class="option-btn">register</a>
+                <a href="register_admin.php" class="option-btn">Register</a>
             </div>
             <?php
             $select_account = $conn->prepare("SELECT * FROM `admins`");
@@ -54,7 +54,7 @@ if(isset($_GET['delete'])){
                             }
                             ?>
                             <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" class="delete-btn"
-                               onclick="return confirm('delete this account?')">delete</a>
+                               onclick="return confirm('delete this account?')">Delete</a>
                         </div>
                     </div>
                     <?php
@@ -71,8 +71,8 @@ if(isset($_GET['delete'])){
 
 </body>
 <style>
-    /* Global Styles */
-body {
+    
+    body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
@@ -124,6 +124,7 @@ body {
   color: #333;
 }
 
+/* Centrage des boutons */
 .box .option-btn,
 .box .delete-btn {
   padding: 8px 16px;
@@ -131,8 +132,10 @@ body {
   text-decoration: none;
   border-radius: 5px;
   margin-top: 10px;
-  display: inline-block;
-  width: 100%;
+  display: block;
+  width: auto; /* Enlever le width 100% */
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   transition: background-color 0.3s ease;
 }
@@ -183,6 +186,7 @@ body {
     padding: 15px;
   }
 }
+
 
 </style>
 </html>

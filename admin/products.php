@@ -67,93 +67,196 @@ if (isset($_GET['delete'])) {
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .add-products {
-            max-width: 600px;
-            margin: auto;
-            padding: 40px;
-            background: #f7f7f7;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .add-products .heading {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-        .add-products .flex {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .add-products .box, .add-products .inputBox {
-            width: 100%;
-            margin-bottom: 20px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            color: #333;
-        }
-        .add-products .btn {
-            padding: 12px 20px;
-            background: #1565c0;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        .add-products .btn:hover {
-            background: #DD0000;
-        }
-        .box {
-            width: 300px;
-            background: #fff;
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .box img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .box .name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .box .price, .box .details {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .box .flex-btn {
-            display: flex;
-            justify-content: space-between;
-        }
-        .box .option-btn, .box .delete-btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .box .option-btn {
-            background: #4caf50;
-        }
-        .box .delete-btn {
-            background: #f44336;
-        }
-    </style>
+    .add-products {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.add-products .heading {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+
+.add-products .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 20px;
+    gap: 20px; /* Espacement uniforme entre les sections */
+}
+
+
+.add-products .inputBox {
+    width: 100%;
+    max-width: 500px; 
+    text-align: left;
+}
+
+/* Style des champs de saisie */
+.add-products .box {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Style du bouton de soumission */
+.add-products .btn {
+    padding: 12px 20px;
+    background: #1565c0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%; /* Bouton qui occupe toute la largeur */
+    transition: 0.3s;
+}
+
+/* survol du bouton */
+.add-products .btn:hover {
+    background: #DD0000;
+}
+
+
+
+
+
+
+
+    .show-products {
+        max-width: 1200px; 
+        margin: 20px auto; 
+        padding: 20px;
+        text-align: center;
+    }
+
+    
+    .show-products .heading {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    
+    .swiper-wrapper {
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        gap: 20px; 
+        justify-items: center; 
+    }
+
+    
+    .swiper-slide {
+        width: 100%; 
+        display: flex;
+        justify-content: center;
+    }
+
+    .box {
+        background: #f9f9f9; 
+        border: 1px solid #ddd; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        max-width: 300px; 
+    }
+
+    .box:hover {
+        transform: translateY(-5px); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    }
+
+    .box img {
+        max-width: 100%; 
+        height: auto;
+        border-radius: 6px; 
+        margin-bottom: 10px;
+    }
+
+    .box .name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .box .price {
+        font-size: 16px;
+        color: #1565c0; 
+        margin-bottom: 10px;
+    }
+
+    .box .details {
+        font-size: 14px;
+        color: #666; 
+        margin-bottom: 15px;
+    }
+
+    .box .flex-btn {
+        display: flex;
+        justify-content: space-between; /* Boutons alignés à gauche et à droite */
+        gap: 10px; /* Espacement entre les boutons */
+    }
+
+    .box .option-btn, .box .delete-btn {
+        flex: 1; 
+        padding: 10px 15px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 14px;
+        text-decoration: none;
+        text-align: center;
+        transition: background 0.3s ease;
+    }
+
+    .box .option-btn {
+        background: #4caf50; /* Vert pour l'option */
+    }
+
+    .box .option-btn:hover {
+        background: #43a047;
+    }
+
+    .box .delete-btn {
+        background: #f44336; /* Rouge pour la suppression */
+    }
+
+    .box .delete-btn:hover {
+        background: #e53935;
+    }
+
+    /* Message vide */
+    .empty {
+        font-size: 16px;
+        color: #666;
+        margin-top: 20px;
+    }
+
+
+
+
+</style>
 </head>
 <body>
     <?php include '../composant/admin_header.php'; ?>

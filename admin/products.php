@@ -299,7 +299,7 @@ if (isset($_GET['delete'])) {
             ?>
             <div class="swiper-slide">
                 <div class="box">
-                    <img src="../uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
+                    <img src="../<?php echo $fetch_products['image']; ?>" alt="">
                     <div class="name"><?php echo $fetch_products['nom']; ?></div>
                     <div class="price">DH<?php echo $fetch_products['prix']; ?>/-</div>
                     <div class="details"><?php echo $fetch_products['description']; ?></div>

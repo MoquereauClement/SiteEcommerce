@@ -31,19 +31,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
 
 <head>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "site";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("La connexion a échoué: " . $conn->connect_error);
-    }
+    require 'PHP/connectBDD.php'
     ?>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/pageprincipale.css">
+    <link rel="stylesheet" href="CSS/pagePrincipale.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vente Express</title>
 </head>
@@ -77,55 +68,54 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
     if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom']) && isset($_SESSION['email'])) {
         echo "<h1>Bienvenue $prenom $nom, voici les produits que vous avez consulté recemment :</h1>";
         echo "<div class='produits-container'>";
-        if (!isset($_SESSION['recent_products'])) {
-            $_SESSION['recent_products'] = array();
+        if (!isset($_SESSION['array_recent_products'])) {
+            $_SESSION['array_recent_products'] = array();
         }
-
-        if (isset($_GET['id_article'])) {
-            $id_article = $_GET['id_article'];
-            if (!in_array($id_article, $_SESSION['recent_products'])) {
-                if (count($_SESSION['recent_products']) >= 5) {
-                    array_pop($_SESSION['recent_products']);
+        if (isset($_COOKIE['recent_product'])) {
+            $id_article = $_COOKIE['recent_product'];
+            if (!in_array($id_article, $_SESSION['array_recent_products'])) {
+                if (count($_SESSION['array_recent_products']) >= 5) {
+                    array_pop($_SESSION['array_recent_products']);
                 }
-                array_unshift($_SESSION['recent_products'], $id_article);
+                array_unshift($_SESSION['array_recent_products'], $id_article);
             }else{
-                $key = array_search($id_article, $_SESSION['recent_products']);
-                unset($_SESSION['recent_products'][$key]);
-                array_unshift($_SESSION['recent_products'], $id_article);
+                $key = array_search($id_article, $_SESSION['array_recent_products']);
+                unset($_SESSION['array_recent_products'][$key]);
+                array_unshift($_SESSION['array_recent_products'], $id_article);
             }
         }
         
-        if (!empty($_SESSION['recent_products'])) {
-            foreach ($_SESSION['recent_products'] as $id_article) {
+        if (!empty($_SESSION['array_recent_products'])) {
+            foreach ($_SESSION['array_recent_products'] as $id_article) {
                 $sql_recent = "SELECT id_article, nom, prix, image, description FROM articles WHERE id_article = $id_article";
                 $result_recent = $conn->query($sql_recent);
                 if ($result_recent->num_rows > 0) {
-                    while ($row_recent = $result_recent->fetch_assoc()) {
+                    while ($row_recent = $result_recent->fetch_assoc()) {   
                         echo "<div class='produits'>";
                         echo "<p class='id_article'>" . $row_recent["id_article"] . "</p>";
                         echo "<p class='nom'>" . $row_recent["nom"] . "</p>";
                         echo "<img class='imageProduit' src='" . $row_recent["image"] . "' alt='Image de " . $row_recent["nom"] . "'>";
                         echo "<p class='description'>" . $row_recent["description"] . "</p>";
-                        echo "<p class='prix'>" . $row_recent["prix"] . "€</p></div>";
+                        echo "<p class='prix'>" . $row_recent["prix"] . "€</p>";
+                        echo "</div>";
                     }
                 }
             }
-            echo "</div>";
+            
         } else {
-            echo "<h1>Aucun produit consulté récemment.</h1><br>";
+            echo "<h1>Aucun produit consulté récemment.</h1>";
         }
+        echo "</div>";
     }
     ?>
-    <br>
-    <h1>Produits</h1>
+    <h1>Produits</h1><br>
     <div class="produits-container">
         <?php
         $sql = "SELECT id_article, nom, prix, image, description FROM articles";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Inclure la description dans l'appel de la fonction openPopup
-                echo "<div class='produits'>";
+                echo "<div class='produits' onclick='cookieProduits(".$row['id_article'].")'>";
                 echo "<p class='id_article'>" . $row["id_article"] . "</p>";
                 echo "<p class='nom'>" . $row["nom"] . "</p>";
                 echo "<img class='imageProduit' src='" . $row["image"] . "' alt='Image de " . $row["nom"] . "'>";

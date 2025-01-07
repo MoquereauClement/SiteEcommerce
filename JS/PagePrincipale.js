@@ -22,14 +22,14 @@ function openPopup(id, name, price, image, description) {
 
 document.getElementById("close-popup").addEventListener("click", function () {
     document.getElementById("popup").style.display = "none";
-    const idArticle = document.getElementById("id_article").value;
-    window.location.href = 'index.php?id_article=' + idArticle;
 });
 
 window.addEventListener("click", function (event) {
     if (event.target === document.getElementById("popup")) {
         document.getElementById("popup").style.display = "none";
-        const idArticle = document.getElementById("id_article").value;
-        window.location.href = 'index.php?id_article=' + idArticle;
     }
 });
+
+function cookieProduits(id_ProduitsRecent){
+    document.cookie = "recent_product="+id_ProduitsRecent+"; path=/";
+}

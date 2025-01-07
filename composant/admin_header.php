@@ -29,11 +29,11 @@
         <section class="flex">
             <a href="dashbord.php" class="logo">Admin<span>Panel</span></a>
             <nav class="navbar">
-                <a href="dashbord.php">Home</a>
-                <a href="Products.php">Products</a>
+                <a href="../admin/dashbord.php">Home</a>
+                <a href="../admin/products.php">Products</a>
               
-                <a href="admin_accounts.php">Admins</a>
-                <a href="user_accounts.php">Users</a>
+                <a href="../admin/admin_accounts.php">Admins</a>
+                <a href="../admin/user_accounts.php">Users</a>
                 
             </nav>
 

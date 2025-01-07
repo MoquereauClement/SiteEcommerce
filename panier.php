@@ -16,19 +16,10 @@ $email = $_SESSION['email'];
 
 <head>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "site";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("La connexion a échoué: " . $conn->connect_error);
-    }
+    require 'PHP/connectBDD.php'
     ?>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/panier.css">
+    <link rel="stylesheet" href="CSS/panier.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vente Express</title>
 </head>

@@ -62,6 +62,7 @@ header #panier{
     font-size: 18px;
     font-weight: bold;
     box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .produits .imageProduit {

@@ -15,22 +15,10 @@ if (isset($_GET['delete'])) {
     // Supprimer l'utilisateur
     $delete_users = $conn->prepare("DELETE FROM `users` WHERE id = ?");
     $delete_users->execute([$delet_id]);
-
-    // Supprimer les commandes associées
-    $delete_order = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
-    $delete_order->execute([$delet_id]);
-
+    
     // Supprimer le panier associé
     $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
     $delete_cart->execute([$delet_id]);
-
-    // Supprimer la liste de souhaits associée
-    $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
-    $delete_wishlist->execute([$delet_id]);
-
-    // Supprimer les messages associés
-    $delete_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
-    $delete_messages->execute([$delet_id]);
 
     header('location:user_accounts.php');
     exit();

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'PHP/connectBDD.php';
+require 'connectBDD.php';
 if(!isset($_SESSION['id'])){
     header("Location: ../connexion.html");
     exit;

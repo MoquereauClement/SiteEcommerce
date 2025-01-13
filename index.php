@@ -42,8 +42,12 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
 <body>
     <header>
         <a href='index.php'><img id='logo' src='IMG/logo.png' alt='Image de VenteExpress'></a>
-        <h2>VenteExpress</h2>
+        <h2>VenteExpress</h2> 
         <div>
+            <form method='GET' action='PHP/recherche.php'>
+                <input type="text" placeholder="Rechercher un produit">
+                <input type="submit" style="display=none">
+            <form>
             <?php
             if (isset($_SESSION['id'])) {
                 echo "<a href='index.php?deconnexion=1'><img id='deconnexion' src='IMG/deconnexion.png' alt='Image de déconnexion'></a>";

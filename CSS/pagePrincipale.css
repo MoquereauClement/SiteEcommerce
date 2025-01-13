@@ -5,18 +5,32 @@ header {
     background-color: grey;
     color: black;
     position: sticky;
-    padding:10px 20px;
+    padding: 10px 20px;
     top: 0;
     z-index: 1000;
 }
 
-header #logo{
+header input{
+    width: 240px;
+    background-color:grey;
+    outline:none;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px black solid;
+}
+
+header input::placeholder{
+    font-size: 20px;
+}
+
+header #logo {
     width: 60px;
     height: 60px;
     margin-left: 10px;
 }
 
-header #connexion{
+header #connexion {
     width: 60px;
     height: 60px;
     float: right;
@@ -24,7 +38,7 @@ header #connexion{
     cursor: pointer;
 }
 
-header #deconnexion{
+header #deconnexion {
     width: 60px;
     height: 60px;
     float: right;
@@ -33,7 +47,7 @@ header #deconnexion{
 }
 
 
-header #panier{
+header #panier {
     width: 60px;
     height: 60px;
     float: right;
@@ -82,7 +96,7 @@ header #panier{
     padding-left: 10px;
 }
 
-.produits .imageCart{
+.produits .imageCart {
     width: 30px;
     height: 30px;
     float: right;
@@ -90,11 +104,11 @@ header #panier{
     cursor: pointer;
 }
 
-body{
-    margin:0;
+body {
+    margin: 0;
     background-image: url('../IMG/HUD.jpg');
     background-position: center;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #popup {
@@ -119,21 +133,21 @@ body{
     box-sizing: border-box;
 }
 
-#ligne1{
-    display:flex;
+#ligne1 {
+    display: flex;
     justify-content: space-between;
 }
 
-#ligne2{
-    display:flex;
+#ligne2 {
+    display: flex;
     justify-content: space-between;
 }
 
-#popup-details{
+#popup-details {
     margin-left: 20px;
-    display:inline-block;
+    display: inline-block;
     text-align: center;
-    font-size:19px;
+    font-size: 19px;
 }
 
 #popup-image {
@@ -141,12 +155,12 @@ body{
     max-height: 50%;
 }
 
-#close-popup{
+#close-popup {
     font-size: 40px;
     cursor: pointer;
 }
 
-#popup-button{
+#popup-button {
     background-color: grey;
     color: black;
     padding: 10px 20px;
@@ -154,30 +168,32 @@ body{
     cursor: pointer;
     border-radius: 10px;
 }
-h1{
-    color:white;
-    margin-left:20px;
-}
-#popup-title{
-    color:black;
+
+h1 {
+    color: white;
+    margin-left: 20px;
 }
 
-#submit-popup{
+#popup-title {
+    color: black;
+}
+
+#submit-popup {
     background-color: grey;
     color: white;
     padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     border-radius: 10px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
-#submit-popup:hover{
+#submit-popup:hover {
     background-color: black;
     color: white;
 }
 
-#quantite{
+#quantite {
     width: 50px;
     height: 30px;
     font-size: 20px;
@@ -185,14 +201,14 @@ h1{
     border-radius: 10px;
 }
 
-#id_article{
+#id_article {
     display: none;
 }
 
-.id_article{
+.id_article {
     display: none;
 }
 
-.description{
+.description {
     display: none;
 }

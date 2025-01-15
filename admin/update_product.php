@@ -11,7 +11,8 @@ if (!isset($_SESSION['admin_id'])) {
 
 if (isset($_POST['update'])) {
     $id_article = $_POST['id_article'];
-    $id_article = filter_var($id_article, FILTER_SANITIZE_SPECIAL_CHARS);
+    $id_article = filter_var($id_article, FILTER_SANITIZE_SPECIAL_CHARS);//// Protège $id_article en échappant les caractères spéciaux pour éviter les failles XSS(chatgpt:))
+
     $nom = $_POST['nom'];
     $nom = filter_var($nom, FILTER_SANITIZE_SPECIAL_CHARS);
     $prix = $_POST['prix'];

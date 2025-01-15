@@ -30,6 +30,14 @@ window.addEventListener("click", function (event) {
     }
 });
 
-function cookieProduits(id_ProduitsRecent){
-    document.cookie = "recent_product="+id_ProduitsRecent+"; path=/";
+function cookieProduits(id_ProduitsRecent) {
+    document.cookie = "recent_product=" + id_ProduitsRecent + "; path=/";
+    reloadProducts();
 }
+
+// Fonction pour recharger le contenu de #productsrecent
+function reloadProducts() {
+    $('#productsrecent').load('index.php #productsrecent');
+}
+
+

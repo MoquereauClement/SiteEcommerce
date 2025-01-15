@@ -10,20 +10,6 @@ header {
     z-index: 1000;
 }
 
-header input{
-    width: 240px;
-    background-color:grey;
-    outline:none;
-    height: 60px;
-    font-size: 20px;
-    border-radius: 5px;
-    border: 2px black solid;
-}
-
-header input::placeholder{
-    font-size: 20px;
-}
-
 header #logo {
     width: 60px;
     height: 60px;
@@ -210,5 +196,23 @@ h1 {
 }
 
 .description {
+    display: none;
+}
+
+#recherche-bar {
+    width: 240px;
+    background-color: grey;
+    outline: none;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px black solid;
+}
+
+#recherche-bar::placeholder {
+    font-size: 20px;
+}
+
+#recherche-bouton {
     display: none;
 }

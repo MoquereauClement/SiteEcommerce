@@ -32,27 +32,28 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
 <head>
     <?php
     require 'PHP/connectBDD.php'
-    ?>
+        ?>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/pagePrincipale.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vente Express</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 
 <body>
     <header>
         <a href='index.php'><img id='logo' src='IMG/logo.png' alt='Image de VenteExpress'></a>
-        <h2>VenteExpress</h2> 
+        <h2>VenteExpress</h2>
         <div>
             <form method='GET' action='PHP/recherche.php'>
-                <input type="text" placeholder="Rechercher un produit">
-                <input type="submit" style="display=none">
-            <form>
+                <input type="text" placeholder="Rechercher un produit" id="recherche-bar">
+                <input type="submit" id="recherche-bouton">
+            </form>
             <?php
             if (isset($_SESSION['id'])) {
                 echo "<a href='index.php?deconnexion=1'><img id='deconnexion' src='IMG/deconnexion.png' alt='Image de déconnexion'></a>";
                 if (isset($_GET['deconnexion'])) {
-                    setcookie("id", "", time() - 3600, "/"); 
+                    setcookie("id", "", time() - 3600, "/");
                     setcookie("nom", "", time() - 3600, "/");
                     setcookie("prenom", "", time() - 3600, "/");
                     setcookie("email", "", time() - 3600, "/");
@@ -67,11 +68,11 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
             <a href="panier.php"><img id='panier' src='IMG/cartnoir.png' alt='Image de panier'></a>
         </div>
     </header>
-    
+
     <?php
     if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom']) && isset($_SESSION['email'])) {
         echo "<h1>Bienvenue $prenom $nom, voici les produits que vous avez consulté recemment :</h1>";
-        echo "<div class='produits-container'>";
+        echo "<div class='produits-container' id='productsrecent'>";
         if (!isset($_SESSION['array_recent_products'])) {
             $_SESSION['array_recent_products'] = array();
         }
@@ -82,19 +83,19 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
                     array_pop($_SESSION['array_recent_products']);
                 }
                 array_unshift($_SESSION['array_recent_products'], $id_article);
-            }else{
+            } else {
                 $key = array_search($id_article, $_SESSION['array_recent_products']);
                 unset($_SESSION['array_recent_products'][$key]);
                 array_unshift($_SESSION['array_recent_products'], $id_article);
             }
         }
-        
+
         if (!empty($_SESSION['array_recent_products'])) {
             foreach ($_SESSION['array_recent_products'] as $id_article) {
                 $sql_recent = "SELECT id_article, nom, prix, image, description FROM articles WHERE id_article = $id_article";
                 $result_recent = $conn->query($sql_recent);
                 if ($result_recent->num_rows > 0) {
-                    while ($row_recent = $result_recent->fetch_assoc()) {   
+                    while ($row_recent = $result_recent->fetch_assoc()) {
                         echo "<div class='produits'>";
                         echo "<p class='id_article'>" . $row_recent["id_article"] . "</p>";
                         echo "<p class='nom'>" . $row_recent["nom"] . "</p>";
@@ -105,21 +106,21 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
                     }
                 }
             }
-            
+
         } else {
             echo "<h1>Aucun produit consulté récemment.</h1>";
         }
         echo "</div>";
     }
     ?>
-    <h1>Produits</h1><br>
+    <h1>Produits</h1>
     <div class="produits-container">
         <?php
         $sql = "SELECT id_article, nom, prix, image, description FROM articles";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<div class='produits' onclick='cookieProduits(".$row['id_article'].")'>";
+                echo "<div class='produits' onclick='cookieProduits(" . $row['id_article'] . ")'>";
                 echo "<p class='id_article'>" . $row["id_article"] . "</p>";
                 echo "<p class='nom'>" . $row["nom"] . "</p>";
                 echo "<img class='imageProduit' src='" . $row["image"] . "' alt='Image de " . $row["nom"] . "'>";

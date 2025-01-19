@@ -216,3 +216,8 @@ h1 {
 #recherche-bouton {
     display: none;
 }
+
+header form {
+    display: inline-flex;
+    align-items: center;
+}

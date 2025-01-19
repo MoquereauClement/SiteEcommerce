@@ -32,7 +32,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
 <head>
     <?php
     require 'PHP/connectBDD.php'
-        ?>
+    ?>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/pagePrincipale.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,8 +45,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
         <a href='index.php'><img id='logo' src='IMG/logo.png' alt='Image de VenteExpress'></a>
         <h2>VenteExpress</h2>
         <div>
-            <form method='GET' action='PHP/recherche.php'>
-                <input type="text" placeholder="Rechercher un produit" id="recherche-bar">
+            <form method="GET">
+                <input type="text" name="search" placeholder="Rechercher un produit" id="recherche-bar">
                 <input type="submit" id="recherche-bouton">
             </form>
             <?php
@@ -106,33 +106,74 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
                     }
                 }
             }
-
         } else {
             echo "<h1>Aucun produit consulté récemment.</h1>";
         }
         echo "</div>";
     }
     ?>
-    <h1>Produits</h1>
-    <div class="produits-container">
-        <?php
+    <?php
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $searchTerm = "%" . trim($_GET['search']) . "%"; // Term de recherche sécurisé
+    
+        // Préparer la requête SQL
+        $sql = "SELECT id_article, nom, prix, image, description FROM articles WHERE nom LIKE ?";
+        $stmt = $conn->prepare($sql);
+    
+        if ($stmt) {
+            // Lier le paramètre
+            $stmt->bind_param("s", $searchTerm);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            echo "<h1>Produits trouvés</h1>";
+            echo "<div class='produits-container'>";
+    
+            // Afficher les produits trouvés
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='produits' onclick='cookieProduits(" . $row['id_article'] . ")'>";
+                    echo "<p class='id_article'>" . $row["id_article"] . "</p>";
+                    echo "<p class='nom'>" . htmlspecialchars($row["nom"]) . "</p>";
+                    echo "<img class='imageProduit' src='" . htmlspecialchars($row["image"]) . "' alt='Image de " . htmlspecialchars($row["nom"]) . "'>";
+                    echo "<p class='description'>" . htmlspecialchars($row["description"]) . "</p>";
+                    echo "<p class='prix'>" . htmlspecialchars($row["prix"]) . "€</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>Aucun produit trouvé pour votre recherche.</p>";
+            }
+    
+            echo "</div>"; // Fermer le container des produits
+            $stmt->close();
+        } else {
+            echo "Erreur lors de la préparation de la requête.";
+        }
+    } else {
+        // Si aucune recherche n'a été effectuée, afficher tous les produits
+        echo "<h1>Produits</h1>";
+        echo "<div class='produits-container'>";
+    
         $sql = "SELECT id_article, nom, prix, image, description FROM articles";
         $result = $conn->query($sql);
+    
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='produits' onclick='cookieProduits(" . $row['id_article'] . ")'>";
                 echo "<p class='id_article'>" . $row["id_article"] . "</p>";
-                echo "<p class='nom'>" . $row["nom"] . "</p>";
-                echo "<img class='imageProduit' src='" . $row["image"] . "' alt='Image de " . $row["nom"] . "'>";
-                echo "<p class='description'>" . $row["description"] . "</p>";
-                echo "<p class='prix'>" . $row["prix"] . "€</p></div>";
+                echo "<p class='nom'>" . htmlspecialchars($row["nom"]) . "</p>";
+                echo "<img class='imageProduit' src='" . htmlspecialchars($row["image"]) . "' alt='Image de " . htmlspecialchars($row["nom"]) . "'>";
+                echo "<p class='description'>" . htmlspecialchars($row["description"]) . "</p>";
+                echo "<p class='prix'>" . htmlspecialchars($row["prix"]) . "€</p>";
+                echo "</div>";
             }
         } else {
-            echo "0 résultats";
+            echo "<p>Aucun produit trouvé.</p>";
         }
-        ?>
-    </div>
-
+    
+        echo "</div>"; // Fermer le container des produits
+    }
+    ?>
     <?php
     if ((time() - $_SESSION['last_activity']) > $inactive) {
         session_unset();
@@ -141,6 +182,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['nom']) && isset($_SESSION['prenom
         exit;
     }
     ?>
+
     <div id="popup">
         <div id="popup-content">
             <div id="ligne1">
